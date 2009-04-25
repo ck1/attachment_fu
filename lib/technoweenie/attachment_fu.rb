@@ -103,9 +103,12 @@ module Technoweenie # :nodoc:
         attachment_options[:path_prefix] ||= attachment_options[:file_system_path]
         if attachment_options[:path_prefix].nil?
           attachment_options[:path_prefix] = case attachment_options[:storage]
-            when :s3: table_name
-            when :cloud_files: table_name
-            else File.join("public", table_name)
+            when :s3
+              table_name
+            when :cloud_files
+              table_name
+            else
+              File.join("public", table_name)
           end
         end
         attachment_options[:path_prefix]   = attachment_options[:path_prefix][1..-1] if options[:path_prefix].first == '/'
